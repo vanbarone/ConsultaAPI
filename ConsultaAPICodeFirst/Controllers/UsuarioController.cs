@@ -28,7 +28,6 @@ namespace ConsultaAPICodeFirst.Controllers
         /// Lista todos os usuários cadastrados
         /// </summary>
         /// <returns>Lista de objetos(Usuario)</returns>
-        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpGet]
         public IActionResult BuscarTodos()
         {
@@ -50,7 +49,6 @@ namespace ConsultaAPICodeFirst.Controllers
         /// </summary>
         /// <param name="id">Identificador do usuário</param>
         /// <returns>Objeto(Usuario)</returns>
-        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
@@ -75,7 +73,6 @@ namespace ConsultaAPICodeFirst.Controllers
         /// </summary>
         /// <param name="entity">Objeto(Usuario)</param>
         /// <returns>Objeto(Usuario)</returns>
-        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpPost]
         public IActionResult Inserir(Usuario entity)
         {
@@ -98,7 +95,6 @@ namespace ConsultaAPICodeFirst.Controllers
         /// <param name="id">Identificador do usuário</param>
         /// <param name="entity">Objeto(Usuario)</param>
         /// <returns>NoContent</returns>
-        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, Usuario entity)
         {
@@ -116,7 +112,7 @@ namespace ConsultaAPICodeFirst.Controllers
 
                 repo.Update(entity);
 
-                return NoContent();
+                return Ok(new {Message = "Dados alterados com sucesso"});
             }
             catch (Exception ex)
             {
@@ -131,7 +127,6 @@ namespace ConsultaAPICodeFirst.Controllers
         /// <param name="id">Identificador do usuário</param>
         /// <param name="patch">Patch com os dados que devem ser alterados</param>
         /// <returns>NoContent</returns>
-        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpPatch("{id}")]
         public IActionResult AlterarPatch(int id, [FromBody] JsonPatchDocument patch)
         {
@@ -149,7 +144,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 //Efetua alteração parcial
                 repo.UpdatePartial(patch, obj);
 
-                return NoContent();
+                return Ok(new { Message = "Dados alterados com sucesso" });
             }
             catch (Exception ex)
             {
@@ -163,7 +158,6 @@ namespace ConsultaAPICodeFirst.Controllers
         /// </summary>
         /// <param name="id">Identificador do usuário</param>
         /// <returns>NoContent</returns>
-        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -178,7 +172,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 //Efetua alteração
                 repo.Delete(obj);
 
-                return NoContent();
+                return Ok(new { Message = "Registro excluído com sucesso" });
             }
             catch (Exception ex)
             {

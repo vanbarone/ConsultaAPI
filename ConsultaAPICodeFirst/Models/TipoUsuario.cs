@@ -6,7 +6,7 @@ namespace ConsultaAPICodeFirst.Models
     public class TipoUsuario
     {
         [Key]
-        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]     //não mostra esse campo no json na inserção e alteração
+        //[JsonIgnore(Condition = JsonIgnoreCondition.Never)]     //não mostra esse campo no json na inserção e alteração
         public int Id { get; set; }
 
         [Required]

@@ -65,7 +65,10 @@ namespace ConsultaAPICodeFirst.Repositories
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
             entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
-            
+
+            //criptografa a senha
+            entity.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(entity.Usuario.Senha);
+
 
             //Salva no BD
             ctx.Medico.Add(entity);
@@ -90,8 +93,12 @@ namespace ConsultaAPICodeFirst.Repositories
             //Seta o tipo de usuário como 'médico'
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
+            if (entity.Usuario != null)
+                entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
 
+            //criptografa a senha
+            if (entity.Usuario != null)
+                entity.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(entity.Usuario.Senha);
 
             //Salva no BD
             ctx.Medico.Update(entity);
@@ -106,8 +113,14 @@ namespace ConsultaAPICodeFirst.Repositories
             //Seta o tipo de usuário como 'médico'
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
+            if (entity.Usuario != null)
+                entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
 
+            //criptografa a senha
+            if (entity.Usuario != null)
+                entity.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(entity.Usuario.Senha);
+
+            //
             ctx.Entry(entity).State = EntityState.Modified;
 
             ctx.SaveChanges();

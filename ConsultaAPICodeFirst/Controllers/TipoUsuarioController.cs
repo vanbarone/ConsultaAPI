@@ -114,7 +114,7 @@ namespace ConsultaAPICodeFirst.Controllers
 
                 repo.Update(entity);
 
-                return NoContent(); 
+                return Ok(new { Message = "Dados alterados com sucesso" });
             }
             catch (Exception ex)
             {
@@ -146,7 +146,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 //Efetua alteração parcial
                 repo.UpdatePartial(patch, obj);
 
-                return NoContent();
+                return Ok(new { Message = "Dados alterados com sucesso" });
             }
             catch (Exception ex)
             {
@@ -174,7 +174,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 //Efetua alteração
                 repo.Delete(obj);
 
-                return NoContent();
+                return Ok(new { Message = "Registro excluído com sucesso" });
             }
             catch (Exception ex)
             {
