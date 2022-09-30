@@ -49,18 +49,19 @@ namespace ConsultaAPICodeFirst.Repositories
         }
 
         public Usuario Insert(Usuario entity)
-        {            
+        {
             //Verifica se o tipo de usuário existe
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            entity.TipoUsuario = repoTipo.FindById(entity.IdTipoUsuario);
+            TipoUsuario tipoUsuario = repoTipo.FindById(entity.IdTipoUsuario);
 
-            if (entity.TipoUsuario == null)
+            if (tipoUsuario == null)
             {
                 throw new ConstraintException("Tipo de Usuário não cadastrado");
-            } else
+            }
+            else
             {
-                if (entity.TipoUsuario.Tipo == "Médico" || entity.TipoUsuario.Tipo == "Paciente")
+                if (tipoUsuario.Tipo == "Médico" || tipoUsuario.Tipo == "Paciente")
                 {
                     throw new ConstraintException("Tipo de Usuário inválido - Médicos e Pacientes devem ser cadastrados usando seus respectivos controllers");
                 }
@@ -75,6 +76,8 @@ namespace ConsultaAPICodeFirst.Repositories
             ctx.SaveChanges();
 
             entity = FindById(entity.Id);
+
+            entity.TipoUsuario = tipoUsuario;
 
             return entity;
         }
